@@ -29,6 +29,11 @@ jobs:
 
       - run: npm run build-netlify
 
+      - name: Point paths at /omniclip/
+        run: |
+          npx importly --host=node_modules --root=/omniclip/ < package-lock.json > x/importmap.json
+          sed -i 's#src="/assets/#src="/omniclip/assets/#g' x/index.html
+
       - name: Show build output
         run: |
           ls x | head -40
